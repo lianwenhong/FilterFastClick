@@ -1,0 +1,4 @@
+rootProject.name = "FilterFastClick"
+include ':app'
+include ':lib'
+include ':annotations'

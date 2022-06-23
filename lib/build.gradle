@@ -1,0 +1,37 @@
+plugins {
+    id 'groovy'
+    id 'maven-publish'
+}
+
+dependencies {
+    implementation gradleApi()
+    implementation localGroovy()
+
+    implementation "com.android.tools.build:gradle:3.6.4"
+    implementation "org.javassist:javassist:3.20.0-GA"
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+publishing {
+    publications {
+        // Creates a Maven publication called "monitor".
+        monitor(MavenPublication) {
+            from components.java
+
+            groupId = 'com.lianwenhong.clickfilter'
+            artifactId = 'modify'
+            version = '1.0.0'
+        }
+    }
+
+    repositories {
+        maven {
+            // 发布地址
+            url('../javassist-jar')
+        }
+    }
+}
