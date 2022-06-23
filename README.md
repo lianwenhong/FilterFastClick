@@ -115,7 +115,7 @@ btnNoFilter.setOnClickListener((View.OnClickListener) Proxy.newProxyInstance(onC
 
 一开始考虑使用类似ButterKnife的实现方案，写个注解然后解析注解再进行动态注入代码，也可以搭配JavaPoet一起，但是由于我是要在原有函数内部实现代码注入而APT和javaPoet搭配一般都是用于生成新的类所以这种方式不合适。用AspectJ这种较为成熟的方案比较麻烦，所以最终我选择用Javassist来对class文件进行动态代码注入来实现功能。
 
-我的思路时：
+我的思路是：
 
 既然每个点击要互不干扰又能实现单个控件屏蔽快速点击，那就必须每个控件都有一个记录上次点击时间的变量，我选择把这个区分标准转移给方法。这样就能实现每个控件的点击调用一个单独方法，针对每个单独方法我生成一个唯一的类变量，各个控件调用对应方法也就互不影响了。但是生成的类变量要保证唯一，所以我创建了一个注解，给注解指定值来保证每个生成的类变量都可控。
 
@@ -182,7 +182,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 }
 ```
 
-代码奉上：
+代码奉上：https://github.com/lianwenhong/FilterFastClick
 
 ### 如果有朋友想接入，那么可以提供2种方式可接入：
 
